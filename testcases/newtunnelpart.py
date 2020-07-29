@@ -7,13 +7,15 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest, time, re,ddt
 from ddt import ddt,data
+from time import sleep
 
 class Newtunnelpart(unittest.TestCase):
     def setUp(self):
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
         self.driver.implicitly_wait(30)
         self.base_url = "https://www.google.com/"
         self.verificationErrors = []
+        self.driver.maximize_window()
         self.accept_next_alert = True
     # @data
     def test_newtunnelpart(self):
@@ -32,6 +34,7 @@ class Newtunnelpart(unittest.TestCase):
         driver.find_element_by_xpath("//div[@id='newMenuBox']/div/div/ul/li[2]/ul/li[3]").click()
         driver.find_element_by_xpath("//div[@id='app']/div/div/div[2]/div/div[2]/div/div/div/div[2]/div/div[2]/div/div/span[2]/span").click()
         #输入通道名称查询
+        sleep(1)
         driver.find_element_by_xpath("(//input[@type='text'])[2]").click()
         driver.find_element_by_xpath("(//input[@type='text'])[2]").clear()
         driver.find_element_by_xpath("(//input[@type='text'])[2]").send_keys(u"测试新增通道名称1")
@@ -54,7 +57,7 @@ class Newtunnelpart(unittest.TestCase):
         #敷设类型
         driver.find_element_by_xpath("(//input[@type='text'])[25]").click()
         #隧道
-        driver.find_element_by_xpath("//div[5]/div/div/ul/li").click()
+        driver.find_element_by_xpath("//div[4]/div/div/ul/li").click()
         #资产编号
         driver.find_element_by_xpath("(//input[@type='text'])[30]").click()
         driver.find_element_by_xpath("(//input[@type='text'])[30]").clear()
@@ -66,7 +69,7 @@ class Newtunnelpart(unittest.TestCase):
         #设备增加方式
         driver.find_element_by_xpath("(//input[@type='text'])[32]").click()
         #基本建设
-        driver.find_element_by_xpath("//div[6]/div/div/ul/li/span").click()
+        driver.find_element_by_xpath("//div[5]/div/div/ul/li/span").click()
         #投运日期
         driver.find_element_by_xpath("(//input[@name=''])[3]").click()
         driver.find_element_by_xpath("//tr[2]/td[4]/div/span").click()
@@ -85,7 +88,7 @@ class Newtunnelpart(unittest.TestCase):
         #悬挂方式
         driver.find_element_by_xpath("(//input[@type='text'])[40]").click()
         #支架
-        driver.find_element_by_xpath("//div[8]/div/div/ul/li").click()
+        driver.find_element_by_xpath("//div[7]/div/div/ul/li").click()
         #断面尺寸
         driver.find_element_by_xpath("(//input[@type='text'])[42]").click()
         driver.find_element_by_xpath("(//input[@type='text'])[42]").clear()
@@ -104,7 +107,8 @@ class Newtunnelpart(unittest.TestCase):
         driver.find_element_by_xpath("(//input[@type='text'])[45]").send_keys(u"施工单位")
         #竣工日期
         driver.find_element_by_xpath("(//input[@name=''])[4]").click()
-        driver.find_element_by_xpath("//div[9]/div/div/div[2]/table/tbody/tr[6]/td[2]/div/span").click()
+        sleep(1)
+        driver.find_element_by_xpath("//div[8]/div/div/div[2]/table/tbody/tr[6]/td[2]/div/span").click()
         #图纸编号
         driver.find_element_by_xpath("(//input[@type='text'])[47]").click()
         driver.find_element_by_xpath("(//input[@type='text'])[47]").clear()
@@ -117,9 +121,10 @@ class Newtunnelpart(unittest.TestCase):
         driver.find_element_by_xpath("(//input[@type='text'])[49]").click()
         driver.find_element_by_xpath("(//input[@type='text'])[49]").clear()
         driver.find_element_by_xpath("(//input[@type='text'])[49]").send_keys(u"设备主人")
-        #登录时间
+        #登记时间
         driver.find_element_by_xpath("(//input[@name=''])[5]").click()
-        driver.find_element_by_xpath("//div[10]/div/div/div[2]/table/tbody/tr[6]/td[2]/div/span").click()
+        sleep(1)
+        driver.find_element_by_xpath("//div[9]/div[1]/div/div[2]/table[1]/tbody/tr[6]/td[2]/div/span").click()
         #设备类型编码
         driver.find_element_by_xpath("(//input[@type='text'])[51]").click()
         driver.find_element_by_xpath("(//input[@type='text'])[51]").clear()
@@ -138,27 +143,29 @@ class Newtunnelpart(unittest.TestCase):
         driver.find_element_by_xpath("(//input[@type='text'])[54]").send_keys("1")
         #重要程度
         driver.find_element_by_xpath("(//input[@type='text'])[56]").click()
-        driver.find_element_by_xpath("//div[11]/div/div/ul/li").click()
+        driver.find_element_by_xpath("//div[10]/div/div/ul/li").click()
         #备注
         driver.find_element_by_xpath("(//input[@type='text'])[57]").click()
         driver.find_element_by_xpath("(//input[@type='text'])[57]").clear()
         driver.find_element_by_xpath("(//input[@type='text'])[57]").send_keys(u"备注")
         #确定
+        sleep(1)
         driver.find_element_by_xpath("//span/button[2]/span").click()
         time.sleep(2)
+
     def is_element_present(self, how, what):
         try: self.driver.find_element(by=how, value=what)
         except NoSuchElementException as e: return False
         return True
 
     def is_alert_present(self):
-        try: self.driver.switch_to_alert()
+        try: self.driver.switch_to.alert()
         except NoAlertPresentException as e: return False
         return True
 
     def close_alert_and_get_its_text(self):
         try:
-            alert = self.driver.switch_to_alert()
+            alert = self.driver.switch_to.alert()
             alert_text = alert.text
             if self.accept_next_alert:
                 alert.accept()
