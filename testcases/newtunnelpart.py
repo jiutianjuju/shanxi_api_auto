@@ -30,8 +30,8 @@ class Newtunnelpart(unittest.TestCase):
         driver.find_element_by_id("input-password").send_keys("admin123")
         driver.find_element_by_id("a-login").click()
 
-        driver.find_element_by_xpath("//div[@id='newMenuBox']/div/div/ul/li[2]/div").click()
-        driver.find_element_by_xpath("//div[@id='newMenuBox']/div/div/ul/li[2]/ul/li[3]").click()
+        driver.find_element_by_xpath("//div[@id='newMenuBox']/div/div/ul/li[3]/div").click()
+        driver.find_element_by_xpath("//div[@id='newMenuBox']/div/div/ul/li[3]/ul/li[3]").click()
         driver.find_element_by_xpath("//div[@id='app']/div/div/div[2]/div/div[2]/div/div/div/div[2]/div/div[2]/div/div/span[2]/span").click()
         #输入通道名称查询
         sleep(1)
